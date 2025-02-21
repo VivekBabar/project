@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Book</title>
+    <link rel="stylesheet" href="buy.css">
+</head>
+<body>
+    <header>
+        <h1>Complete Your Purchase</h1>
+        <a href="login.html">Back to Home</a>
+    </header>
+
+    <div id="purchase-info">
+        <!-- Book Information (Left side) -->
+        <div id="book-info">
+            <h2 id="book-title"></h2>
+            <img id="book-image" src="" alt="Book Cover" height="350px" width="280px">
+        </div>
+
+        <!-- Payment Options (Right side) -->
+        <div id="payment-options">
+            <h3>Select Payment Method:</h3>
+            <form id="payment-form">
+                <label>
+                    <input type="radio" name="payment" value="credit-card" required> Credit Card
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="paypal"> PayPal
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="google-pay"> Google Pay
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="phonepe"> PhonePe
+                </label>
+                <label>
+                    <input type="radio" name="payment" value="upi"> UPI (Pay with UPI ID)
+                </label>
+
+                <div id="upi-details" style="display: none;">
+                    <label for="upi-id">Enter UPI ID:</label>
+                    <input type="text" id="upi-id" name="upi-id" placeholder="Enter UPI ID" required>
+                </div>
+
+                <button type="submit">Complete Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Book data (simulated database)
+        const books = {
+            "1": { title: "Stephen King", img: "download (2).jpg", desc: "A thrilling horror book by Stephen King." },
+            "2": { title: "Those Eyes", img: "th (3).jpg", desc: "A mysterious story of unexpected twists." },
+            "3": { title: "The Devil Cat", img: "th (4).jpg", desc: "A horror story about a cursed cat." },
+            "4": { title: "Hanging House", img: "th (2).jpg", desc: "A haunted house with a dark past." }
+        };
+
+        // Get bookId from URL
+        const params = new URLSearchParams(window.location.search);
+        const bookId = params.get("bookId");
+
+        // Display book info
+        if (books[bookId]) {
+            document.getElementById("book-title").textContent = books[bookId].title;
+            document.getElementById("book-image").src = books[bookId].img;
+        } else {
+            document.getElementById("purchase-info").innerHTML = "<p>Book not found.</p>";
+        }
+
+        // Handle payment method selection
+        document.querySelectorAll('input[name="payment"]').forEach(function (paymentOption) {
+            paymentOption.addEventListener('change', function () {
+                if (this.value === "upi") {
+                    document.getElementById("upi-details").style.display = 'block';
+                } else {
+                    document.getElementById("upi-details").style.display = 'none';
+                }
+            });
+        });
+
+        // Handle payment form submission
+        document.getElementById("payment-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            alert(`You have selected ${selectedPaymentMethod} to complete the payment.`);
+            // In a real application, here you would initiate the payment process
+        });
+    </script>
+</body>
+</html>

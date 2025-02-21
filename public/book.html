@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <link rel="stylesheet" href="books.css">
+</head>
+<body>
+    <header>
+        <h1>Book Details</h1>```html
+<div id="book-info">
+    <img id="book-image" src="" alt="Book Cover" height="350px" width="280px">
+    <div id="book-details">
+        <h2 id="book-title"></h2>
+        <p id="book-description"></p>
+        <h1 id="book-price"></h1> 
+        <button onclick="window.location.href='buy.html?bookId=' + new URLSearchParams(window.location.search).get('bookId')">Buy Now</button>
+    </div>
+</div>
+```
+        <a href="login.html">Back to Home</a>
+    </header>
+    
+    <div id="book-info">
+        <img id="book-image" src="" alt="Book Cover" height="350px" width="280px">
+        <div id="book-details">
+            <h2 id="book-title"></h2>
+            <p id="book-description"></p>
+            <h1>Price : 19$</h1> <!-- New price element -->
+            <button onclick="window.location.href='buy.html?bookId=' + new URLSearchParams(window.location.search).get('bookId')">Buy Now</button>
+        </div>
+    </div>
+
+    <script>
+        // Book data (simulated database) with price included
+        const books = {
+            "1": { title: "Stephen King", img: "download (2).jpg", desc: "Stephen King is a renowned American author, famous for his horror, supernatural fiction, suspense, and fantasy novels. Some of his notable works include The Shining, It, Carrie, Misery, and The Dark Tower series. King's writing often explores themes of fear, isolation, and the human condition..", price: "$19.99" },
+            "2": { title: "Those Eyes", img: "th (3).jpg", desc: "A mysterious story of unexpected twists.", price: "$14.99" },
+            "3": { title: "The Devil Cat", img: "th (4).jpg", desc: "A horror story about a cursed cat.", price: "$12.99" },
+            "4": { title: "Hanging House", img: "th (2).jpg", desc: "A haunted house with a dark past.", price: "$17.99" }
+        };
+
+        // Get bookId from URL
+        const params = new URLSearchParams(window.location.search);
+        const bookId = params.get("bookId");
+
+        // Display book info
+        if (books[bookId]) {
+            document.getElementById("book-title").textContent = books[bookId].title;
+            document.getElementById("book-image").src = books[bookId].img;
+            document.getElementById("book-description").textContent = books[bookId].desc;
+            document.getElementById("book-price").textContent = `Price: ${books[bookId].price}`;  // Display price
+        } else {
+            document.getElementById("book-info").innerHTML = "<p>Book not found.</p>";
+        }
+    </script>
+</body>
+</html>
